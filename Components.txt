@@ -1,0 +1,9 @@
+Raspberry pi Pico Headers (as-is)
+
+E paper display:
+      https://www.waveshare.com/wiki/Pico-ePaper-2.13
+Capacitive moisture sensor:
+      No datasheet?
+      No required library
+Waterproof digital temperature sensor:
+      Theoretically no library required?
