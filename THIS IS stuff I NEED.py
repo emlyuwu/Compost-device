@@ -20,6 +20,13 @@ def num1():
         moist = 1
         temp = 1
         addfile.write(f"\n{moist},{temp}")
-
 # USE THIS FOR THE BG SAVE
-num1()
+
+from machine import Pin
+import utime as time
+
+
+#BUTTON
+def button():
+    state = Pin(15, Pin.IN, Pin.PULL_UP)
+    return state.value()

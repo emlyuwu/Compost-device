@@ -96,8 +96,18 @@ def refresh(temp, moist, code):
         # hot and wet
         print("Your compost is hot and wet. Turn it more, and maybe add dry material.")
 
+btn = 0
 def getbutton():
-    print("blah blah check which buttons pressed")
+    global btn
+    if Pin(15, Pin.IN, Pin.PULL_UP).value() != 1:
+        btn = 0
+    elif Pin(17, Pin.IN, Pin.PULL_UP).value() != 1:
+        btn = 1
+    elif Pin(2, Pin.IN, Pin.PULL_UP).value() != 1:
+        btn = 2
+    elif Pin(3, Pin.IN, Pin.PULL_UP).value() != 1:
+        btn = 3
+    return btn
 
 
 # Loop for while buttons are unpressed. top left is current, top right is graph
@@ -108,22 +118,24 @@ def getbutton():
 
 
 def current():
-    while getbutton() == 1:
+    while getbutton() == 0:
+        print("current")
         #show the current info
-        temp, moist = recieve()
-        code = advice(temp, moist)
-        refresh(temp, moist, code)
-        time.sleep(60)
+        # temp, moist = recieve()
+        # code = advice(temp, moist)
+        # refresh(temp, moist, code)
+        time.sleep(5)
 def graph():
-    while getbutton() == 2:
+    while getbutton() == 1:
         # show the graph
         # make the graph
         print("graph")
-        time.sleep(60)
+        time.sleep(5)
 def idle():
-    while getbutton() == 3:
+    while getbutton() == 3 or 4:
+        print("IDLE")
         #this should really just be turning off the screen and running background data saving
-        print
+        time.sleep(5)
 
 
 def datasize():
