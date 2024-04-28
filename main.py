@@ -1,6 +1,7 @@
 # import packages
 import utime as time
 from machine import ADC, Pin
+import displaymod
 
 csv = "stuff.csv"
 # Get packages for display and other shit
@@ -22,79 +23,6 @@ def recieve():
     t = 0
     m = moistrec()
     return t, m
-def advice(temp, moist):
-    # Keep tempurature between 105 and 160 F. Turn if too hot, leave if too cold.
-    # Moisture should be between 45-60%. Turn or add dry material if too wet, water lightly if too dry.
-    # Compost should be regularly turned a little less than twice a week.
-    # Result should be returned as a code. Too wet = 1, too dry = 2, etc.
-    if temp > 160 and moist > 60:
-        # Hot and moist
-        code = 8
-        return code
-    elif temp > 160 and moist < 45:
-        # Hot and dry
-        code = 7
-        return code
-    elif temp < 105 and moist > 60:
-        # Cold and wet
-        code = 6
-        return code
-    elif temp < 105 and moist < 45:
-        # Cold and dry
-        code = 5
-        return code
-    elif temp < 105 and 45 < moist < 60:
-        # Cold
-        code = 4
-        return code
-    elif temp > 160 and 45 < moist < 60:
-        # Hot
-        code = 3
-        return code
-    elif 105<temp<160 and moist > 60:
-        # Wet
-        code = 2
-        return code
-    elif 105<temp<160 and moist < 45:
-        # Dry
-        code = 1
-        return code
-    elif 105<temp<160 and 45<moist<60:
-        # Good
-        code = 0
-        return code
-    
-    
-def refresh(temp, moist, code):
-    # format for lcd
-    print(f"Temperature is {temp}\nMoisture is {moist}.\n")
-    if code == 0:
-        #good
-        print("Your compost heap has good temperature and moisture.")
-    elif code == 1:
-        #dry
-        print("Your compost is dry. Add some water.")
-    elif code == 2:
-        #wet
-        print("Your compost is too wet. Try turning it and/or adding dry material.")
-    elif code == 3:
-        #hot
-        print("Your compost is too hot. Turn it over soon.")
-    elif code == 4:
-        #cold
-        print("Your compost is too cold. Don't turn it until it stabilizes.")
-    elif code == 5:
-        # cold and dry
-        print("Your compost is cold and dry. Add some water and more organics.")
-    elif code == 6:
-        # cold and wet
-        print("Your compost is cold and wet. Try adding more dry material and let it sit.")
-    elif code == 7:
-        # hot and dry
-        print("Your compost is hot and dry. Add water and turn it.")
-    elif code == 8:
-        # hot and wet
-        print("Your compost is hot and wet. Turn it more, and maybe add dry material.")
 
 btn = 0
 def getbutton():
