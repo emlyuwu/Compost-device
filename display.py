@@ -239,19 +239,27 @@ def graph():
 
     # draw graph frame
     LCD.line(20,8,20,220, LCD.WHITE)
-    LCD.line(20,220,288,220, LCD.WHITE)
+    LCD.line(20,220,300,220, LCD.WHITE)
     LCD.text("215 f, 75% m", 0,0,LCD.WHITE)
     LCD.text("50 f, 30% m", 10,230,LCD.WHITE)
     #pull data from csv
     # graph moisture from 30-75
     # graph temp from 50 - 215
     # graph height is 212
-    # each degree of temp is 1.284848 pixels
+    # graph width is 270, each value is 3 pixels wide
+    # 5 pixel buffer zone on X axis of graph.
+    # each degree of temp is 1.284848 pixels. Just round both?
     # each percent of moisture is 4.7111 pixels
     
     time.sleep(1)
+    with open(csv) as f:
+        for line in f:
+            print(line.split(","))
+            time.sleep(5)
+            
+        
     # LCD.line(160,120,LCD.WHITE)
-    LCD.show()
+    # LCD.show()
     print("pixel changed")
     
 graph()

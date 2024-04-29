@@ -1,7 +1,7 @@
 # import packages
 import utime as time
 from machine import ADC, Pin
-import displaymod
+import display
 
 csv = "stuff.csv"
 # Get packages for display and other shit
@@ -66,6 +66,7 @@ def idle():
         time.sleep(5)
 
 
+
 def datasize():
     with open(csv) as f:
         line_count = 0
@@ -75,15 +76,16 @@ def datasize():
 
 def bgsave():
     while True:
-        time.sleep(3600)
+        #save every 3 hours
+        time.sleep(10800)
         temp, moist = recieve()
         #-- all saved data is being padded to ensure simple replacement of entries. I.E, oldest data (Say, 12 digits) deleted from end and newest data suffended--
         # JUST KIDDING IM WIPING LINES
         with open(csv, "r") as infile:
             lines = infile.readlines()
         # check csv size to save storage
-        # 336 hours is 14 days. if more than 14 days of info are saved, oldest info is wiped.
-        if datasize() > 336:
+        # stores for 10 days. if more than 10 days of info are saved, oldest info is wiped.
+        if datasize() > 90:
             with open(csv, "w") as outfile:
                 for pos, line in enumerate(lines):
                     print("killing oldest data")
