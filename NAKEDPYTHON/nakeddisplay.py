@@ -94,16 +94,24 @@ def graph():
     
     time.sleep(1)
     with open(csv) as f:
+        prev = [0,0]
         print("doing things")
-        for line in f:
+        for index, line in enumerate(f):
             a,b = (line.split(","))
-            print(a,b)
+            print(index, a,b)
             time.sleep(.3)
+            x = (3*index)+28
+            my = a
+            ty = b
+            #LCD.line(x-3,prev[0],x,my, LCD.GREEN)
+            #LCD.line(x-3,pref[1],x,ty, LCD.ORANGE)
+            prev = a,b
+            
             
         
     # LCD.line(160,120,LCD.WHITE)
     # LCD.show()
     print("pixel changed")
     
-fillshit()
+graph()
 
