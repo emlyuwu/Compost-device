@@ -1,4 +1,4 @@
-# WS 320x240 display example
+# WS 320x240 display example 
 from machine import Pin,SPI,PWM
 import framebuf
 import time
@@ -161,7 +161,7 @@ def refresh(temp, moist):
     if 105<temp<160 and 45<moist<60:
         #good
         return(f"Your compost heap has good temperature"),("and moisture.")
-    elif 105<temp<160 and moist < 45:
+    elif 105<temp<160 and 45 < moist < 60:
         #dry
         return(f"Your compost is dry. Add some water."),("")
     elif 105<temp<160 and moist > 60:
@@ -207,7 +207,7 @@ def current(temp, moist):
         LCD.text(f"{temp} F",162,8,LCD.WHITE)
         
         LCD.show()
-        time.sleep(1)
+        time.sleep(.1)
         LCD.fill_rect(0,24,160,26,LCD.GREEN)
         LCD.rect(0,24,160,26,LCD.GREEN)
         LCD.text("Moisture",2,30,LCD.WHITE)
@@ -216,7 +216,7 @@ def current(temp, moist):
         LCD.rect(160,24,320,26,LCD.BLUE)
         LCD.text(f"{moist} %",162,30,LCD.WHITE)
         LCD.show()
-        time.sleep(1)
+        time.sleep(.1)
         LCD.show()
         
 
@@ -225,6 +225,7 @@ def current(temp, moist):
         LCD.show()
         time.sleep(0.1)
         LCD.show()
+        time.sleep(15)
 
 def graph():
     #initialize display
@@ -251,16 +252,35 @@ def graph():
     # each degree of temp is 1.284848 pixels. Just round both?
     # each percent of moisture is 4.7111 pixels
     
-    time.sleep(1)
     with open(csv) as f:
-        for line in f:
-            print(line.split(","))
-            time.sleep(5)
-            
+        #replace with display.py on home computer - accurate cartesian conversion for quadrant 4
+        prev = [0,0]
+        print("doing things")
+        for index, line in enumerate(f):
+            a,b = (line.split(","))
+            print(index, a,b)
+            time.sleep(.1)
+            x = (3*index)+28
+            my = a
+            ty = b
+            LCD.line(x-3,prev[0],x,my, LCD.GREEN)
+            LCD.line(x-3,prev[1],x,ty, LCD.ORANGE)
+            prev = a,b
+                
         
     # LCD.line(160,120,LCD.WHITE)
     # LCD.show()
-    print("pixel changed")
+    print("graphed fully")
+    time.sleep(600)
     
+def idle():
+    pwm = PWM(Pin(BL))
+    pwm.freq(1000)
+    pwm.duty_u16(32768)#max 65535
+    LCD = LCD_1inch3()
+    LCD.fill(LCD.WHITE)
+    LCD.show()
+    time.sleep(6000)
+
 graph()
 

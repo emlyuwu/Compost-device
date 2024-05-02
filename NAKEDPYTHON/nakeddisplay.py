@@ -9,7 +9,7 @@ def refresh(temp, moist):
     if 105<temp<160 and 45<moist<60:
         #good
         return(f"Your compost heap has good temperature"),("and moisture.")
-    elif 105<temp<160 and moist < 45:
+    elif 105<temp<160 and 45 < moist < 60:
         #dry
         return(f"Your compost is dry. Add some water."),("")
     elif 105<temp<160 and moist > 60:
@@ -103,8 +103,10 @@ def graph():
             x = (3*index)+28
             my = a
             ty = b
-            #LCD.line(x-3,prev[0],x,my, LCD.GREEN)
-            #LCD.line(x-3,pref[1],x,ty, LCD.ORANGE)
+            amy = 240-(my)
+            aty = 240-(ty) 
+            LCD.line(x-3,prev[0],x,my, LCD.GREEN)
+            LCD.line(x-3,prev[1],x,ty, LCD.ORANGE)
             prev = a,b
             
             
