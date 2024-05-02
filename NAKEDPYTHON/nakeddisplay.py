@@ -40,7 +40,7 @@ def datasize():
             line_count += 1
     return line_count
 
-def fillshit():
+def fillcsv():
     while True:
         #save every 3 hours
         time.sleep(0.1)
